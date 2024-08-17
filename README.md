@@ -1,4 +1,4 @@
-For the weird unreachble graphql-codegen execution, I created a tiny proxy to fetch schema from a micro service on railway.app:
+For the weird unreachble graphql-codegen execution, I created a tiny proxy to fetch schema from a micro service on railway.app as a proxy, let it get the schema for you:
 
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/ZTf2oC?referralCode=Gemoto)
 
@@ -16,11 +16,11 @@ After deployment, set the public network in the instance setting panel, set the 
 
 ### Create a watcher
 
-Now you have a proxy url like :
+Now you have a endpoint url like :
 
 https://something.up.railway.app/
 
-I use @parcel/watcher to create a simple watcher
+I use @parcel/watcher to create a simple watcher, here are the must have packages:
 ```bash
 bun add @graphql-codegen/cli @parcel/watcher
 ```
@@ -41,14 +41,14 @@ async function runCommands() {
       { method: 'POST' }
     );
     const updateData = await updateResult.text();
-    console.log('Schema updated', updateData);
+    console.log(updateData);
     const result = await fetch('https://something.up.railway.app/graphql');
     const data = await result.text();
     const filePath = path.join(__dirname, 'schema.graphql');
 
     fs.writeFileSync(filePath, data, 'utf8');
     console.log('Schema reloaded');
-    
+
     await execAsync('bun graphql-codegen --config codegen.ts');
     console.log('Code generated');
   } catch (error) {
@@ -87,7 +87,7 @@ Modify any of your .tsx file and save:
 
 ```bash
 Detected change in App.tsx
-Schema updated Schema updated successfully!
+Schema updated successfully!
 Schema reloaded
 Code generated
 ```
