@@ -1,0 +1,20 @@
+{
+  "name": "backend-ts-template",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "dev": "bun run src/app.ts",
+    "start": "bun run src/app.ts"
+  },
+  "dependencies": {
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/typescript": "^4.0.9",
+    "graphql-request": "^7.1.0"
+  }
+}
