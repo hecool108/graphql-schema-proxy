@@ -21,7 +21,10 @@ Now you have a proxy url like :
 https://something.up.railway.app/
 
 I use @parcel/watcher to create a simple watcher
-
+```bash
+bun add @graphql-codegen/cli @parcel/watcher
+```
+watcher.ts
 ```typescript
 import { subscribe } from '@parcel/watcher';
 import { exec } from 'child_process';
@@ -43,11 +46,10 @@ async function runCommands() {
     const data = await result.text();
     const filePath = path.join(__dirname, 'schema.graphql');
 
-    // Save the schema to a file
     fs.writeFileSync(filePath, data, 'utf8');
     console.log('Schema reloaded');
-
-    await execAsync('bun run cg');
+    
+    await execAsync('bun graphql-codegen --config codegen.ts');
     console.log('Code generated');
   } catch (error) {
     console.error('Error executing commands:', error);
