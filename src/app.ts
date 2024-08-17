@@ -18,7 +18,7 @@ const filePath = join(__dirname, 'schema.graphql');
 console.log('filePath', filePath);
 
 // Read the file content
-const fileContent = readFileSync(filePath, 'utf-8');
+
 
 // Set up the server
 serve({
@@ -27,6 +27,7 @@ serve({
     const { pathname } = new URL(req.url);
 
     if (req.method === 'GET' && pathname === '/graphql') {
+      const fileContent = readFileSync(filePath, 'utf-8');
       return new Response(fileContent, {
         headers: { 'Content-Type': 'text/plain' },
       });
