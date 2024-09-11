@@ -4,7 +4,7 @@ import Elysia from 'elysia';
 import { join } from 'path';
 import bearer from '@elysiajs/bearer';
 const main = async () => {
-  await fetchSchema(['tigertech']);
+  await fetchSchema([]);
 };
 
 main().then(() => {
