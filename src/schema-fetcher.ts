@@ -52,13 +52,13 @@ export const fetchSchema = async (selectedDatabases: string[]) => {
     const result = await client.query({ query: getIntrospectionQuery() });
     // Convert the introspection result to a GraphQL schema
     const schema = buildClientSchema(result.data);
-    const filteredSchema = pruneSchema(
-      filterDatabaseSchema(schema, selectedDatabases)
-    );
+    // const filteredSchema = pruneSchema(
+    //   filterDatabaseSchema(schema, selectedDatabases)
+    // );
     
     
     // Convert the schema to SDL (Schema Definition Language)
-    const sdl = printSchema(filteredSchema);
+    const sdl = printSchema(schema);
     console.log(sdl);
     // Define the path to save the schema file
     const filePath = path.join(__dirname, 'schema.graphql');
