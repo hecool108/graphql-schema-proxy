@@ -1,10 +1,10 @@
+import cors from '@elysiajs/cors';
 import { fetchSchema } from './schema-fetcher';
-import { serve } from 'bun';
-import { readFileSync } from 'fs';
+import Elysia from 'elysia';
 import { join } from 'path';
-
+import bearer from '@elysiajs/bearer';
 const main = async () => {
-  await fetchSchema();
+  await fetchSchema(['tigertech']);
 };
 
 main().then(() => {
@@ -17,31 +17,36 @@ const PORT = 3000;
 const filePath = join(__dirname, 'schema.graphql');
 console.log('filePath', filePath);
 
-// Read the file content
+const handleBearer = ({ bearer, set }: any) => {
+  if (!bearer || bearer !== process.env.AUTH_BEARER) {
+    set.status = 400;
+    set.headers[
+      'WWW-Authenticate'
+    ] = `Bearer realm='fb', error="invalid_request"`;
+    return 'Unauthorized';
+  }
+};
 
-
-// Set up the server
-serve({
-  port: PORT,
-  async fetch(req) {
-    const { pathname } = new URL(req.url);
-
-    if (req.method === 'GET' && pathname === '/graphql') {
-      const fileContent = readFileSync(filePath, 'utf-8');
-      return new Response(fileContent, {
-        headers: { 'Content-Type': 'text/plain' },
-      });
+new Elysia()
+  .use(cors({ origin: '*' }))
+  .use(bearer())
+  .get('/graphql', Bun.file(filePath))
+  .post(
+    '/update',
+    async ({body}) => {
+      console.log('body', body);
+      
+      const dbs = (body as any).dbs || '';
+      if (dbs === '') {
+        await fetchSchema([]);
+      }
+      await fetchSchema(dbs.split(','));
+      return 'Schema updated successfully!';
+    },
+    {
+      beforeHandle: handleBearer,
     }
-
-    if (req.method === 'POST' && pathname === '/update') {
-      await fetchSchema();
-      return new Response('Schema updated successfully!', {
-        headers: { 'Content-Type': 'text/plain' },
-      });
-    }
-
-    return new Response('Not Found', { status: 404 });
-  },
-});
+  )
+  .listen(PORT);
 
 console.log(`Server running at http://localhost:${PORT}`);

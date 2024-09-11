@@ -1,0 +1,977 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""whether this query should be cached (Hasura Cloud only)"""
+directive @cached on QUERY
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "tigertech.product"
+  """
+  delete_tigertech_product(
+    """filter the rows which have to be deleted"""
+    where: tigertech_product_bool_exp!
+  ): tigertech_product_mutation_response
+
+  """
+  delete single row from the table: "tigertech.product"
+  """
+  delete_tigertech_product_by_pk: tigertech_product
+
+  """
+  delete data from the table: "tigertech.product_sku"
+  """
+  delete_tigertech_product_sku(
+    """filter the rows which have to be deleted"""
+    where: tigertech_product_sku_bool_exp!
+  ): tigertech_product_sku_mutation_response
+
+  """
+  delete single row from the table: "tigertech.product_sku"
+  """
+  delete_tigertech_product_sku_by_pk: tigertech_product_sku
+
+  """
+  delete data from the table: "tigertech.specification"
+  """
+  delete_tigertech_specification(
+    """filter the rows which have to be deleted"""
+    where: tigertech_specification_bool_exp!
+  ): tigertech_specification_mutation_response
+
+  """
+  delete single row from the table: "tigertech.specification"
+  """
+  delete_tigertech_specification_by_pk: tigertech_specification
+
+  """
+  insert data into the table: "tigertech.product"
+  """
+  insert_tigertech_product(
+    """the rows to be inserted"""
+    objects: [tigertech_product_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: tigertech_product_on_conflict
+  ): tigertech_product_mutation_response
+
+  """
+  insert a single row into the table: "tigertech.product"
+  """
+  insert_tigertech_product_one(
+    """the row to be inserted"""
+    object: tigertech_product_insert_input!
+
+    """upsert condition"""
+    on_conflict: tigertech_product_on_conflict
+  ): tigertech_product
+
+  """
+  insert data into the table: "tigertech.product_sku"
+  """
+  insert_tigertech_product_sku(
+    """the rows to be inserted"""
+    objects: [tigertech_product_sku_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: tigertech_product_sku_on_conflict
+  ): tigertech_product_sku_mutation_response
+
+  """
+  insert a single row into the table: "tigertech.product_sku"
+  """
+  insert_tigertech_product_sku_one(
+    """the row to be inserted"""
+    object: tigertech_product_sku_insert_input!
+
+    """upsert condition"""
+    on_conflict: tigertech_product_sku_on_conflict
+  ): tigertech_product_sku
+
+  """
+  insert data into the table: "tigertech.specification"
+  """
+  insert_tigertech_specification(
+    """the rows to be inserted"""
+    objects: [tigertech_specification_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: tigertech_specification_on_conflict
+  ): tigertech_specification_mutation_response
+
+  """
+  insert a single row into the table: "tigertech.specification"
+  """
+  insert_tigertech_specification_one(
+    """the row to be inserted"""
+    object: tigertech_specification_insert_input!
+
+    """upsert condition"""
+    on_conflict: tigertech_specification_on_conflict
+  ): tigertech_specification
+
+  """
+  update data of the table: "tigertech.product"
+  """
+  update_tigertech_product(
+    """filter the rows which have to be updated"""
+    where: tigertech_product_bool_exp!
+  ): tigertech_product_mutation_response
+
+  """
+  update single row of the table: "tigertech.product"
+  """
+  update_tigertech_product_by_pk: tigertech_product
+
+  """
+  update multiples rows of table: "tigertech.product"
+  """
+  update_tigertech_product_many(
+    """updates to execute, in order"""
+    updates: [tigertech_product_updates!]!
+  ): [tigertech_product_mutation_response]
+
+  """
+  update data of the table: "tigertech.product_sku"
+  """
+  update_tigertech_product_sku(
+    """filter the rows which have to be updated"""
+    where: tigertech_product_sku_bool_exp!
+  ): tigertech_product_sku_mutation_response
+
+  """
+  update single row of the table: "tigertech.product_sku"
+  """
+  update_tigertech_product_sku_by_pk: tigertech_product_sku
+
+  """
+  update multiples rows of table: "tigertech.product_sku"
+  """
+  update_tigertech_product_sku_many(
+    """updates to execute, in order"""
+    updates: [tigertech_product_sku_updates!]!
+  ): [tigertech_product_sku_mutation_response]
+
+  """
+  update data of the table: "tigertech.specification"
+  """
+  update_tigertech_specification(
+    """filter the rows which have to be updated"""
+    where: tigertech_specification_bool_exp!
+  ): tigertech_specification_mutation_response
+
+  """
+  update single row of the table: "tigertech.specification"
+  """
+  update_tigertech_specification_by_pk: tigertech_specification
+
+  """
+  update multiples rows of table: "tigertech.specification"
+  """
+  update_tigertech_specification_many(
+    """updates to execute, in order"""
+    updates: [tigertech_specification_updates!]!
+  ): [tigertech_specification_mutation_response]
+}
+
+type query_root {
+  """
+  fetch data from the table: "tigertech.product"
+  """
+  tigertech_product(
+    """distinct select on columns"""
+    distinct_on: [tigertech_product_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_product_bool_exp
+  ): [tigertech_product!]!
+
+  """
+  fetch aggregated fields from the table: "tigertech.product"
+  """
+  tigertech_product_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tigertech_product_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_product_bool_exp
+  ): tigertech_product_aggregate!
+
+  """
+  fetch data from the table: "tigertech.product" using primary key columns
+  """
+  tigertech_product_by_pk: tigertech_product
+
+  """
+  fetch data from the table: "tigertech.product_sku"
+  """
+  tigertech_product_sku(
+    """distinct select on columns"""
+    distinct_on: [tigertech_product_sku_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_product_sku_bool_exp
+  ): [tigertech_product_sku!]!
+
+  """
+  fetch aggregated fields from the table: "tigertech.product_sku"
+  """
+  tigertech_product_sku_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tigertech_product_sku_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_product_sku_bool_exp
+  ): tigertech_product_sku_aggregate!
+
+  """
+  fetch data from the table: "tigertech.product_sku" using primary key columns
+  """
+  tigertech_product_sku_by_pk: tigertech_product_sku
+
+  """
+  fetch data from the table: "tigertech.specification"
+  """
+  tigertech_specification(
+    """distinct select on columns"""
+    distinct_on: [tigertech_specification_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_specification_bool_exp
+  ): [tigertech_specification!]!
+
+  """
+  fetch aggregated fields from the table: "tigertech.specification"
+  """
+  tigertech_specification_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tigertech_specification_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_specification_bool_exp
+  ): tigertech_specification_aggregate!
+
+  """
+  fetch data from the table: "tigertech.specification" using primary key columns
+  """
+  tigertech_specification_by_pk: tigertech_specification
+}
+
+type subscription_root {
+  """
+  fetch data from the table: "tigertech.product"
+  """
+  tigertech_product(
+    """distinct select on columns"""
+    distinct_on: [tigertech_product_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_product_bool_exp
+  ): [tigertech_product!]!
+
+  """
+  fetch aggregated fields from the table: "tigertech.product"
+  """
+  tigertech_product_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tigertech_product_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_product_bool_exp
+  ): tigertech_product_aggregate!
+
+  """
+  fetch data from the table: "tigertech.product" using primary key columns
+  """
+  tigertech_product_by_pk: tigertech_product
+
+  """
+  fetch data from the table: "tigertech.product_sku"
+  """
+  tigertech_product_sku(
+    """distinct select on columns"""
+    distinct_on: [tigertech_product_sku_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_product_sku_bool_exp
+  ): [tigertech_product_sku!]!
+
+  """
+  fetch aggregated fields from the table: "tigertech.product_sku"
+  """
+  tigertech_product_sku_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tigertech_product_sku_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_product_sku_bool_exp
+  ): tigertech_product_sku_aggregate!
+
+  """
+  fetch data from the table: "tigertech.product_sku" using primary key columns
+  """
+  tigertech_product_sku_by_pk: tigertech_product_sku
+
+  """
+  fetch data from the table in a streaming manner: "tigertech.product_sku"
+  """
+  tigertech_product_sku_stream(
+    """filter the rows returned"""
+    where: tigertech_product_sku_bool_exp
+  ): [tigertech_product_sku!]!
+
+  """
+  fetch data from the table in a streaming manner: "tigertech.product"
+  """
+  tigertech_product_stream(
+    """filter the rows returned"""
+    where: tigertech_product_bool_exp
+  ): [tigertech_product!]!
+
+  """
+  fetch data from the table: "tigertech.specification"
+  """
+  tigertech_specification(
+    """distinct select on columns"""
+    distinct_on: [tigertech_specification_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_specification_bool_exp
+  ): [tigertech_specification!]!
+
+  """
+  fetch aggregated fields from the table: "tigertech.specification"
+  """
+  tigertech_specification_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tigertech_specification_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_specification_bool_exp
+  ): tigertech_specification_aggregate!
+
+  """
+  fetch data from the table: "tigertech.specification" using primary key columns
+  """
+  tigertech_specification_by_pk: tigertech_specification
+
+  """
+  fetch data from the table in a streaming manner: "tigertech.specification"
+  """
+  tigertech_specification_stream(
+    """filter the rows returned"""
+    where: tigertech_specification_bool_exp
+  ): [tigertech_specification!]!
+}
+
+input tigertech_image_aggregate_bool_exp {
+  count: tigertech_image_aggregate_bool_exp_count
+}
+
+input tigertech_image_aggregate_bool_exp_count {
+  arguments: [tigertech_image_select_column!]
+  filter: tigertech_image_bool_exp
+}
+
+"""
+input type for inserting array relation for remote table "tigertech.image"
+"""
+input tigertech_image_arr_rel_insert_input {
+  """upsert condition"""
+  on_conflict: tigertech_image_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "tigertech.image". All fields are combined with a logical 'AND'.
+"""
+input tigertech_image_bool_exp {
+  _and: [tigertech_image_bool_exp!]
+  _not: tigertech_image_bool_exp
+  _or: [tigertech_image_bool_exp!]
+}
+
+"""
+unique or primary key constraints on table "tigertech.image"
+"""
+enum tigertech_image_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  image_pkey
+}
+
+"""
+on_conflict condition type for table "tigertech.image"
+"""
+input tigertech_image_on_conflict {
+  constraint: tigertech_image_constraint!
+  update_columns: [tigertech_image_update_column!]! = []
+  where: tigertech_image_bool_exp
+}
+
+"""
+select columns of table "tigertech.image"
+"""
+enum tigertech_image_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  from
+
+  """column name"""
+  id
+
+  """column name"""
+  image_type
+
+  """column name"""
+  operator
+
+  """column name"""
+  order
+
+  """column name"""
+  product_id
+
+  """column name"""
+  referer
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  url
+}
+
+"""
+update columns of table "tigertech.image"
+"""
+enum tigertech_image_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  from
+
+  """column name"""
+  id
+
+  """column name"""
+  image_type
+
+  """column name"""
+  operator
+
+  """column name"""
+  order
+
+  """column name"""
+  product_id
+
+  """column name"""
+  referer
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  url
+}
+
+"""
+columns and relationships of "tigertech.product"
+"""
+type tigertech_product {
+  """An array relationship"""
+  sku(
+    """distinct select on columns"""
+    distinct_on: [tigertech_product_sku_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_product_sku_bool_exp
+  ): [tigertech_product_sku!]!
+
+  """An aggregate relationship"""
+  sku_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tigertech_product_sku_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_product_sku_bool_exp
+  ): tigertech_product_sku_aggregate!
+
+  """An array relationship"""
+  specifications(
+    """distinct select on columns"""
+    distinct_on: [tigertech_specification_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_specification_bool_exp
+  ): [tigertech_specification!]!
+
+  """An aggregate relationship"""
+  specifications_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tigertech_specification_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_specification_bool_exp
+  ): tigertech_specification_aggregate!
+}
+
+"""
+aggregated selection of "tigertech.product"
+"""
+type tigertech_product_aggregate {
+  nodes: [tigertech_product!]!
+}
+
+"""
+Boolean expression to filter rows from the table "tigertech.product". All fields are combined with a logical 'AND'.
+"""
+input tigertech_product_bool_exp {
+  _and: [tigertech_product_bool_exp!]
+  _not: tigertech_product_bool_exp
+  _or: [tigertech_product_bool_exp!]
+  images: tigertech_image_bool_exp
+  images_aggregate: tigertech_image_aggregate_bool_exp
+  sku: tigertech_product_sku_bool_exp
+  sku_aggregate: tigertech_product_sku_aggregate_bool_exp
+  specifications: tigertech_specification_bool_exp
+  specifications_aggregate: tigertech_specification_aggregate_bool_exp
+}
+
+"""
+unique or primary key constraints on table "tigertech.product"
+"""
+enum tigertech_product_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  product_pkey
+}
+
+"""
+input type for inserting data into table "tigertech.product"
+"""
+input tigertech_product_insert_input {
+  images: tigertech_image_arr_rel_insert_input
+  sku: tigertech_product_sku_arr_rel_insert_input
+  specifications: tigertech_specification_arr_rel_insert_input
+}
+
+"""
+response of any mutation on the table "tigertech.product"
+"""
+type tigertech_product_mutation_response {
+  """data from the rows affected by the mutation"""
+  returning: [tigertech_product!]!
+}
+
+"""
+input type for inserting object relation for remote table "tigertech.product"
+"""
+input tigertech_product_obj_rel_insert_input {
+  data: tigertech_product_insert_input!
+
+  """upsert condition"""
+  on_conflict: tigertech_product_on_conflict
+}
+
+"""
+on_conflict condition type for table "tigertech.product"
+"""
+input tigertech_product_on_conflict {
+  constraint: tigertech_product_constraint!
+  update_columns: [tigertech_product_update_column!]! = []
+  where: tigertech_product_bool_exp
+}
+
+"""
+select columns of table "tigertech.product"
+"""
+enum tigertech_product_select_column {
+  """column name"""
+  cover_image
+
+  """column name"""
+  created_at
+
+  """column name"""
+  description
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  operator
+
+  """column name"""
+  original_id
+
+  """column name"""
+  platform_id
+
+  """column name"""
+  price
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  url
+
+  """column name"""
+  visable
+}
+
+"""
+columns and relationships of "tigertech.product_sku"
+"""
+type tigertech_product_sku {
+  """An object relationship"""
+  product: tigertech_product
+
+  """An array relationship"""
+  products_specifications(
+    """distinct select on columns"""
+    distinct_on: [tigertech_specification_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_specification_bool_exp
+  ): [tigertech_specification!]!
+
+  """An aggregate relationship"""
+  products_specifications_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tigertech_specification_select_column!]
+
+    """filter the rows returned"""
+    where: tigertech_specification_bool_exp
+  ): tigertech_specification_aggregate!
+}
+
+"""
+aggregated selection of "tigertech.product_sku"
+"""
+type tigertech_product_sku_aggregate {
+  nodes: [tigertech_product_sku!]!
+}
+
+input tigertech_product_sku_aggregate_bool_exp {
+  count: tigertech_product_sku_aggregate_bool_exp_count
+}
+
+input tigertech_product_sku_aggregate_bool_exp_count {
+  arguments: [tigertech_product_sku_select_column!]
+  filter: tigertech_product_sku_bool_exp
+}
+
+"""
+input type for inserting array relation for remote table "tigertech.product_sku"
+"""
+input tigertech_product_sku_arr_rel_insert_input {
+  data: [tigertech_product_sku_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: tigertech_product_sku_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "tigertech.product_sku". All fields are combined with a logical 'AND'.
+"""
+input tigertech_product_sku_bool_exp {
+  _and: [tigertech_product_sku_bool_exp!]
+  _not: tigertech_product_sku_bool_exp
+  _or: [tigertech_product_sku_bool_exp!]
+  product: tigertech_product_bool_exp
+  products_specifications: tigertech_specification_bool_exp
+  products_specifications_aggregate: tigertech_specification_aggregate_bool_exp
+}
+
+"""
+unique or primary key constraints on table "tigertech.product_sku"
+"""
+enum tigertech_product_sku_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  product_sku_pkey
+}
+
+"""
+input type for inserting data into table "tigertech.product_sku"
+"""
+input tigertech_product_sku_insert_input {
+  product: tigertech_product_obj_rel_insert_input
+  products_specifications: tigertech_specification_arr_rel_insert_input
+}
+
+"""
+response of any mutation on the table "tigertech.product_sku"
+"""
+type tigertech_product_sku_mutation_response {
+  """data from the rows affected by the mutation"""
+  returning: [tigertech_product_sku!]!
+}
+
+"""
+on_conflict condition type for table "tigertech.product_sku"
+"""
+input tigertech_product_sku_on_conflict {
+  constraint: tigertech_product_sku_constraint!
+  update_columns: [tigertech_product_sku_update_column!]! = []
+  where: tigertech_product_sku_bool_exp
+}
+
+"""
+select columns of table "tigertech.product_sku"
+"""
+enum tigertech_product_sku_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  operator
+
+  """column name"""
+  product_id
+
+  """column name"""
+  sku
+
+  """column name"""
+  specs
+
+  """column name"""
+  stock
+
+  """column name"""
+  updated_at
+}
+
+"""
+update columns of table "tigertech.product_sku"
+"""
+enum tigertech_product_sku_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  operator
+
+  """column name"""
+  product_id
+
+  """column name"""
+  sku
+
+  """column name"""
+  specs
+
+  """column name"""
+  stock
+
+  """column name"""
+  updated_at
+}
+
+input tigertech_product_sku_updates {
+  """filter the rows which have to be updated"""
+  where: tigertech_product_sku_bool_exp!
+}
+
+"""
+update columns of table "tigertech.product"
+"""
+enum tigertech_product_update_column {
+  """column name"""
+  cover_image
+
+  """column name"""
+  created_at
+
+  """column name"""
+  description
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  operator
+
+  """column name"""
+  original_id
+
+  """column name"""
+  platform_id
+
+  """column name"""
+  price
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  url
+
+  """column name"""
+  visable
+}
+
+input tigertech_product_updates {
+  """filter the rows which have to be updated"""
+  where: tigertech_product_bool_exp!
+}
+
+"""
+columns and relationships of "tigertech.specification"
+"""
+type tigertech_specification {
+  """An object relationship"""
+  product: tigertech_product
+}
+
+"""
+aggregated selection of "tigertech.specification"
+"""
+type tigertech_specification_aggregate {
+  nodes: [tigertech_specification!]!
+}
+
+input tigertech_specification_aggregate_bool_exp {
+  count: tigertech_specification_aggregate_bool_exp_count
+}
+
+input tigertech_specification_aggregate_bool_exp_count {
+  arguments: [tigertech_specification_select_column!]
+  filter: tigertech_specification_bool_exp
+}
+
+"""
+input type for inserting array relation for remote table "tigertech.specification"
+"""
+input tigertech_specification_arr_rel_insert_input {
+  data: [tigertech_specification_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: tigertech_specification_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "tigertech.specification". All fields are combined with a logical 'AND'.
+"""
+input tigertech_specification_bool_exp {
+  _and: [tigertech_specification_bool_exp!]
+  _not: tigertech_specification_bool_exp
+  _or: [tigertech_specification_bool_exp!]
+  product: tigertech_product_bool_exp
+}
+
+"""
+unique or primary key constraints on table "tigertech.specification"
+"""
+enum tigertech_specification_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  specification_pkey
+}
+
+"""
+input type for inserting data into table "tigertech.specification"
+"""
+input tigertech_specification_insert_input {
+  product: tigertech_product_obj_rel_insert_input
+}
+
+"""
+response of any mutation on the table "tigertech.specification"
+"""
+type tigertech_specification_mutation_response {
+  """data from the rows affected by the mutation"""
+  returning: [tigertech_specification!]!
+}
+
+"""
+on_conflict condition type for table "tigertech.specification"
+"""
+input tigertech_specification_on_conflict {
+  constraint: tigertech_specification_constraint!
+  update_columns: [tigertech_specification_update_column!]! = []
+  where: tigertech_specification_bool_exp
+}
+
+"""
+select columns of table "tigertech.specification"
+"""
+enum tigertech_specification_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  operator
+
+  """column name"""
+  product_id
+
+  """column name"""
+  type
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  value
+}
+
+"""
+update columns of table "tigertech.specification"
+"""
+enum tigertech_specification_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  operator
+
+  """column name"""
+  product_id
+
+  """column name"""
+  type
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  value
+}
+
+input tigertech_specification_updates {
+  """filter the rows which have to be updated"""
+  where: tigertech_specification_bool_exp!
+}

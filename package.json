@@ -10,12 +10,17 @@
   },
   "scripts": {
     "dev": "bun run src/app.ts",
+    "ldev": "HTTP_PROXY=127.0.0.1:7890 bun run src/app.ts",
     "start": "bun run src/app.ts"
   },
   "dependencies": {
+    "@elysiajs/bearer": "^1.1.2",
+    "@elysiajs/cors": "^1.1.1",
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/typescript": "^4.0.9",
+    "@graphql-tools/utils": "^10.5.4",
     "@types/graphqurl": "^1.0.3",
+    "elysia": "^1.1.12",
     "graphql": "^16.9.0",
     "graphql-request": "^7.1.0",
     "graphqurl": "^1.0.3"
